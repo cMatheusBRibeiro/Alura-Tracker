@@ -24,6 +24,11 @@
                                 <i class="fas fa-pencil-alt"></i>
                             </span>
                         </router-link>
+                        <button class="button ml-2 is-danger" @click="excluir(projeto.id)">
+                            <span class="icon is-small">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                        </button>
                     </td>
                 </tr>
             </tbody>
@@ -33,6 +38,7 @@
 
 <script lang="ts">
 import { useStore } from "@/store";
+import { ADICIONAR_PROJETO, EXCLUIR_PROJETO } from "@/store/tipo-mutacoes";
 import { computed, defineComponent } from "vue";
 
 export default defineComponent({
@@ -44,8 +50,11 @@ export default defineComponent({
     },
     methods: {
         salvar() {
-            this.store.commit('ADICIONAR_PROJETO', this.nomeDoProjeto)
+            this.store.commit(ADICIONAR_PROJETO, this.nomeDoProjeto)
             this.nomeDoProjeto = ''
+        },
+        excluir(id: string) {
+            this.store.commit(EXCLUIR_PROJETO, id)
         }
     },
     setup() {
