@@ -14,7 +14,7 @@ export const store = createStore<Estado>({
         projetos: []
     },
     mutations: {
-        'ADICIONAR_PROJETO'(state, nomeDoProjeto: string) {
+        ADICIONAR_PROJETO(state, nomeDoProjeto: string) {
             const projeto = {
                 id: new Date().toISOString(),
                 nome: nomeDoProjeto
