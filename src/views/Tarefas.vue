@@ -14,6 +14,7 @@ import Formulario from '../components/Formulario.vue';
 import Tarefa from '../components/Tarefa.vue';
 import Box from '../components/Box.vue';
 import { useStore } from '@/store';
+import { OBTER_TAREFAS } from '@/store/tipo-acoes';
 
 export default defineComponent({
     name: 'Tarefas',
@@ -29,6 +30,7 @@ export default defineComponent({
     },
     setup() {
         const store = useStore()
+        store.dispatch(OBTER_TAREFAS)
         return {
             tarefas: computed(() => store.state.tarefas)
         }
