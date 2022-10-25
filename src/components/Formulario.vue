@@ -23,25 +23,25 @@
 
 <script lang="ts">
 import { key } from '@/store'
+import { ADICIONAR_TAREFA } from '@/store/tipo-mutacoes'
 import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import Temporizador from './Temporizador.vue'
 
 export default defineComponent({
     name: 'Formulario',
-    emits: ['aoSalvarTarefa'],
     components: {
         Temporizador
     },
-    data () {
+    data() {
         return {
             descricao: '',
             idProjeto: ''
         }
     },
     methods: {
-        finalizarTarefa (tempoEmSegundos: number) : void {
-            this.$emit('aoSalvarTarefa', {
+        finalizarTarefa(tempoEmSegundos: number) : void {
+            this.store.commit(ADICIONAR_TAREFA, {
                 duracaoEmSegundos: tempoEmSegundos,
                 descricao: this.descricao,
                 projeto: this.projetos.find(proj => proj.id === this.idProjeto)
@@ -49,10 +49,11 @@ export default defineComponent({
             this.descricao = ''
         }
     },
-    setup () {
+    setup() {
         const store = useStore(key) 
 
         return {
+            store,
             projetos: computed(() => store.state.projetos)
         }
     }
