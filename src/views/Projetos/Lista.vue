@@ -38,7 +38,7 @@
 
 <script lang="ts">
 import { useStore } from "@/store";
-import { OBTER_PROJETOS, REMOVER_PROJETO } from "@/store/tipo-acoes";
+import { REMOVER_PROJETO } from "@/store/tipo-acoes";
 import { computed, defineComponent } from "vue";
 
 export default defineComponent({
@@ -56,7 +56,6 @@ export default defineComponent({
     },
     setup() {
         const store = useStore()
-        store.dispatch(OBTER_PROJETOS)
         return {
             store,
             projetos: computed(() => store.state.projetos)

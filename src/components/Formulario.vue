@@ -29,6 +29,7 @@ import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import Temporizador from './Temporizador.vue'
 import useNotificador from '@/hooks/notificador'
+import { CADASTRAR_TAREFA } from '@/store/tipo-acoes'
 
 export default defineComponent({
     name: 'Formulario',
@@ -50,7 +51,7 @@ export default defineComponent({
                 return
             }
 
-            this.store.commit(ADICIONAR_TAREFA, {
+            this.store.dispatch(CADASTRAR_TAREFA, {
                 duracaoEmSegundos: tempoEmSegundos,
                 descricao: this.descricao,
                 projeto: projeto

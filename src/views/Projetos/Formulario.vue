@@ -18,7 +18,6 @@
 import { TipoNotificacao } from "@/interfaces/INotificacao";
 import useNotificador from '@/hooks/notificador';
 import { useStore } from "@/store";
-import { ALTERA_PROJETO } from "@/store/tipo-mutacoes";
 import { defineComponent } from "vue";
 import { ALTERAR_PROJETO, CADASTRAR_PROJETO } from "@/store/tipo-acoes";
 

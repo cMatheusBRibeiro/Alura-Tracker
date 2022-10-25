@@ -13,12 +13,6 @@ const routes : RouteRecordRaw[] = [
         component: Tarefas
     },
     {
-        path: '/tarefas/:id',
-        name: 'Editar tarefa',
-        component: Edicao,
-        props: true
-    },
-    {
         path: '/projetos',
         component: Projetos,
         children: [
