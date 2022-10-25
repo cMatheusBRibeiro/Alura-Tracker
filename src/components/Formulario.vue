@@ -28,14 +28,13 @@ import { ADICIONAR_TAREFA } from '@/store/tipo-mutacoes'
 import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import Temporizador from './Temporizador.vue'
-import { notificacaoMixin } from '@/mixins/notificar'
+import useNotificador from '@/hooks/notificador'
 
 export default defineComponent({
     name: 'Formulario',
     components: {
         Temporizador
     },
-    mixins: [notificacaoMixin],
     data() {
         return {
             descricao: '',
@@ -61,10 +60,12 @@ export default defineComponent({
     },
     setup() {
         const store = useStore(key) 
+        const { notificar } = useNotificador()
 
         return {
             store,
-            projetos: computed(() => store.state.projetos)
+            projetos: computed(() => store.state.projetos),
+            notificar
         }
     }
 })
