@@ -1,9 +1,11 @@
 import IProjeto from "@/interfaces/IProjeto";
 import ITarefa from "@/interfaces/ITarefa";
+import http from '@/http'
 import { createStore, Store, useStore as vuexUseStore } from 'vuex'
 import { InjectionKey } from 'vue';
-import { ADICIONAR_PROJETO, ADICIONAR_TAREFA, ALTERA_PROJETO, ALTERA_TAREFA, EXCLUIR_PROJETO, EXCLUIR_TAREFA, NOTIFICAR } from "./tipo-mutacoes";
-import { INotificacao, TipoNotificacao } from "@/interfaces/INotificacao";
+import { ADICIONAR_PROJETO, ADICIONAR_TAREFA, ALTERA_PROJETO, ALTERA_TAREFA, DEFINIR_PROJETOS, EXCLUIR_PROJETO, EXCLUIR_TAREFA, NOTIFICAR } from "./tipo-mutacoes";
+import { INotificacao } from "@/interfaces/INotificacao";
+import { OBTER_PROJETOS } from "./tipo-acoes";
 
 
 interface Estado {
@@ -35,6 +37,9 @@ export const store = createStore<Estado>({
         [EXCLUIR_PROJETO](state, id: string) {
             state.projetos = state.projetos.filter(proj => proj.id !== id)
         },
+        [DEFINIR_PROJETOS](state, projetos: IProjeto[]) {
+            state.projetos = projetos
+        },
         [ADICIONAR_TAREFA](state, tarefa: ITarefa) {
             tarefa.id = new Date().toISOString()
             state.tarefas.push(tarefa)
@@ -52,6 +57,12 @@ export const store = createStore<Estado>({
             setTimeout(() => {
                 state.notificacoes = state.notificacoes.filter(notificacao => notificacao.id !== notificacao.id)
             }, 3000)
+        }
+    },
+    actions: {
+        [OBTER_PROJETOS]({ commit }) {
+            http.get('projetos')
+                .then(resposta => commit(DEFINIR_PROJETOS, resposta.data))
         }
     }
 })
