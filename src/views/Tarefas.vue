@@ -20,7 +20,7 @@
                 </div>
             </section>
             <footer class="modal-card-foot">
-                <button class="button is-success">Salvar alterações</button>
+                <button class="button is-success" @click="alterarTarefa">Salvar alterações</button>
                 <button class="button" @click="cancelarEdicao">Cancelar</button>
             </footer>
         </div>
@@ -33,7 +33,7 @@ import Formulario from '../components/Formulario.vue';
 import Tarefa from '../components/Tarefa.vue';
 import Box from '../components/Box.vue';
 import { useStore } from '@/store';
-import { OBTER_PROJETOS, OBTER_TAREFAS } from '@/store/tipo-acoes';
+import { ALTERAR_TAREFA, OBTER_PROJETOS, OBTER_TAREFAS } from '@/store/tipo-acoes';
 import ITarefa from '@/interfaces/ITarefa';
 
 export default defineComponent({
@@ -59,6 +59,11 @@ export default defineComponent({
         },
         cancelarEdicao () {
             this.tarefaSelecionada = null
+        },
+        alterarTarefa () {
+            this.store
+                .dispatch(ALTERAR_TAREFA, this.tarefaSelecionada)
+                .then(() => this.tarefaSelecionada = null)
         }
     },
     setup() {
@@ -66,6 +71,7 @@ export default defineComponent({
         store.dispatch(OBTER_PROJETOS)
         store.dispatch(OBTER_TAREFAS)
         return {
+            store,
             tarefas: computed(() => store.state.tarefas)
         }
     }

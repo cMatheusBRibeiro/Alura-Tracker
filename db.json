@@ -17,7 +17,7 @@
     },
     {
       "duracaoEmSegundos": 2,
-      "descricao": "Nova tarefa",
+      "descricao": "Nova tarefa Testada",
       "projeto": {
         "id": 1,
         "nome": "Alura Tracker"
