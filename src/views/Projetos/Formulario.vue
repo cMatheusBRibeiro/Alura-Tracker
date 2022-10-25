@@ -18,8 +18,9 @@
 import { TipoNotificacao } from "@/interfaces/INotificacao";
 import useNotificador from '@/hooks/notificador';
 import { useStore } from "@/store";
-import { ADICIONAR_PROJETO, ALTERA_PROJETO } from "@/store/tipo-mutacoes";
+import { ALTERA_PROJETO } from "@/store/tipo-mutacoes";
 import { defineComponent } from "vue";
+import { ALTERAR_PROJETO, CADASTRAR_PROJETO } from "@/store/tipo-acoes";
 
 export default defineComponent({
     name: 'Formulario',
@@ -29,26 +30,33 @@ export default defineComponent({
         }
     },
     mounted () {
-        if (this.id) {
-            const projeto = this.store.state.projetos.find(proj => proj.id === this.id)
+        if(this.id) {
+            const projeto = this.store.state.projetos.find(proj => proj.id == this.id)
             this.nomeDoProjeto = projeto?.nome || ''
         }
     },
-    data () {
+    data() {
         return {
             nomeDoProjeto: ''
         }
     },
     methods: {
-        salvar () {
-            if (this.id)
-                this.store.commit(ALTERA_PROJETO, {
-                    id: this.id,
-                    nome: this.nomeDoProjeto
-                })
-            else
-                this.store.commit(ADICIONAR_PROJETO, this.nomeDoProjeto)
-
+        salvar() {
+            if(this.id) {
+                this.store
+                    .dispatch(ALTERAR_PROJETO, {
+                        id: this.id,
+                        nome: this.nomeDoProjeto
+                    })
+                    .then(() => this.lidarComSucesso())
+            }
+            else {
+                this.store
+                    .dispatch(CADASTRAR_PROJETO, this.nomeDoProjeto)
+                    .then(() => this.lidarComSucesso())
+            }
+        },
+        lidarComSucesso() {
             this.notificar(TipoNotificacao.SUCCESSO, 'Um novo projeto foi salvo', `O projeto "${ this.nomeDoProjeto }" já está disponível.`)
             this.nomeDoProjeto = ''
             this.$router.push('/projetos')
