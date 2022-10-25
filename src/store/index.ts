@@ -2,7 +2,7 @@ import IProjeto from "@/interfaces/IProjeto";
 import ITarefa from "@/interfaces/ITarefa";
 import { createStore, Store, useStore as vuexUseStore } from 'vuex'
 import { InjectionKey } from 'vue';
-import { ADICIONAR_PROJETO, ADICIONAR_TAREFA, ALTERA_PROJETO, ALTERA_TAREFA, EXCLUIR_PROJETO, EXCLUIR_TAREFA } from "./tipo-mutacoes";
+import { ADICIONAR_PROJETO, ADICIONAR_TAREFA, ALTERA_PROJETO, ALTERA_TAREFA, EXCLUIR_PROJETO, EXCLUIR_TAREFA, NOTIFICAR } from "./tipo-mutacoes";
 import { INotificacao, TipoNotificacao } from "@/interfaces/INotificacao";
 
 
@@ -18,32 +18,7 @@ export const store = createStore<Estado>({
     state: {
         projetos: [],
         tarefas: [],
-        notificacoes: [
-            {
-                id: 1,
-                texto: 'Uma notificação de sucesso.',
-                titulo: 'Sucesso!',
-                tipo: TipoNotificacao.SUCCESSO
-            },
-            {
-                id: 2,
-                texto: 'Uma notificação de atenção.',
-                titulo: 'Atenção!',
-                tipo: TipoNotificacao.ATENCAO
-            },
-            {
-                id: 3,
-                texto: 'Uma notificação de falha.',
-                titulo: 'Falha!',
-                tipo: TipoNotificacao.FALHA
-            },
-            {
-                id: 4,
-                texto: 'Uma notificação de sucesso.',
-                titulo: 'Sucesso!',
-                tipo: TipoNotificacao.SUCCESSO
-            }
-        ]
+        notificacoes: []
     },
     mutations: {
         [ADICIONAR_PROJETO](state, nomeDoProjeto: string) {
@@ -70,6 +45,13 @@ export const store = createStore<Estado>({
         },
         [EXCLUIR_TAREFA](state, id: string) {
             state.tarefas = state.tarefas.filter(t => t.id !== id)
+        },
+        [NOTIFICAR](state, notificacao: INotificacao) {
+            notificacao.id = new Date().getTime()
+            state.notificacoes.push(notificacao)
+            setTimeout(() => {
+                state.notificacoes = state.notificacoes.filter(notificacao => notificacao.id !== notificacao.id)
+            }, 3000)
         }
     }
 })
