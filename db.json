@@ -8,7 +8,7 @@
   "tarefas": [
     {
       "id": 1,
-      "descricao": "Migração das tarefas para API",
+      "descricao": "Migração das tarefas para API teste",
       "duracaoEmSegundos": 240,
       "projeto": {
         "id": 1,
