@@ -4,7 +4,6 @@ import Tarefas from '../views/Tarefas.vue'
 import Projetos from '../views/Projetos.vue'
 import Formulario from '@/views/Projetos/Formulario.vue'
 import Lista from '@/views/Projetos/Lista.vue'
-import Edicao from '@/views/Tarefas/Edicao.vue'
 
 const routes : RouteRecordRaw[] = [
     {

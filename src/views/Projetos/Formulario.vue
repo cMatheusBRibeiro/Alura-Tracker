@@ -19,7 +19,7 @@ import { TipoNotificacao } from "@/interfaces/INotificacao";
 import useNotificador from '@/hooks/notificador';
 import { useStore } from "@/store";
 import { defineComponent, ref } from "vue";
-import { ALTERAR_PROJETO, CADASTRAR_PROJETO, OBTER_PROJETOS } from "@/store/tipo-acoes";
+import { ALTERAR_PROJETO, CADASTRAR_PROJETO } from "@/store/tipo-acoes";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
