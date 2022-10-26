@@ -14,25 +14,22 @@
             Você não está muito produtivo hoje :(
         </Box>
     </div>
-    <div class="modal" :class="{ 'is-active': tarefaSelecionada }" v-if="tarefaSelecionada">
-        <div class="modal-background"></div>
-        <div class="modal-card">
-            <header class="modal-card-head">
-                <p class="modal-card-title">Editar tarefa</p>
-                <button class="delete" @click="cancelarEdicao" aria-label="close"></button>
-            </header>
-            <section class="modal-card-body">
-                <div class="field">
-                    <label for="descricaoDaTarefa" class="label">Descrição da Tarefa</label>
-                    <input type="text" class="input" v-model="tarefaSelecionada.descricao" id="descricaoDaTarefa">
-                </div>
-            </section>
-            <footer class="modal-card-foot">
-                <button class="button is-success" @click="alterarTarefa">Salvar alterações</button>
-                <button class="button" @click="cancelarEdicao">Cancelar</button>
-            </footer>
-        </div>
-    </div>
+    <Modal :mostrar="tarefaSelecionada != null" v-if="tarefaSelecionada != null">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Editar tarefa</p>
+            <button class="delete" @click="cancelarEdicao" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+            <div class="field">
+                <label for="descricaoDaTarefa" class="label">Descrição da Tarefa</label>
+                <input type="text" class="input" v-model="tarefaSelecionada.descricao" id="descricaoDaTarefa">
+            </div>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-success" @click="alterarTarefa">Salvar alterações</button>
+            <button class="button" @click="cancelarEdicao">Cancelar</button>
+        </footer>
+    </Modal>
 </template>
 
 <script lang="ts">
@@ -40,6 +37,7 @@ import { computed, defineComponent, ref, watch } from 'vue';
 import Formulario from '../components/Formulario.vue';
 import Tarefa from '../components/Tarefa.vue';
 import Box from '../components/Box.vue';
+import Modal from '../components/Modal.vue';
 import { useStore } from '@/store';
 import { ALTERAR_TAREFA, OBTER_PROJETOS, OBTER_TAREFAS } from '@/store/tipo-acoes';
 import ITarefa from '@/interfaces/ITarefa';
@@ -49,7 +47,8 @@ export default defineComponent({
     components: {
         Formulario,
         Tarefa,
-        Box
+        Box,
+        Modal
     },
     data() {
         return {
