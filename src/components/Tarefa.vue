@@ -30,15 +30,16 @@ export default defineComponent({
         Cronometro,
         Box
     },
-    methods: {
-        tarefaClicada() {
-            this.$emit('aoTarefaClicada', this.tarefa)
-        }
-    },
-    setup() {
+    setup(props, { emit }) {
         const store = useStore()
+
+        const tarefaClicada = () => {
+            emit('aoTarefaClicada', props.tarefa)
+        }
+
         return {
-            store
+            store,
+            tarefaClicada
         }
     }
 })
