@@ -15,20 +15,20 @@
         </Box>
     </div>
     <Modal :mostrar="tarefaSelecionada != null" v-if="tarefaSelecionada != null">
-        <header class="modal-card-head">
+        <template v-slot:cabecalho>
             <p class="modal-card-title">Editar tarefa</p>
             <button class="delete" @click="cancelarEdicao" aria-label="close"></button>
-        </header>
-        <section class="modal-card-body">
+        </template>
+        <template v-slot:corpo>
             <div class="field">
                 <label for="descricaoDaTarefa" class="label">Descrição da Tarefa</label>
                 <input type="text" class="input" v-model="tarefaSelecionada.descricao" id="descricaoDaTarefa">
             </div>
-        </section>
-        <footer class="modal-card-foot">
+        </template>
+        <template v-slot:rodape>
             <button class="button is-success" @click="alterarTarefa">Salvar alterações</button>
             <button class="button" @click="cancelarEdicao">Cancelar</button>
-        </footer>
+        </template>
     </Modal>
 </template>
 
