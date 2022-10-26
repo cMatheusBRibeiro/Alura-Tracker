@@ -27,6 +27,15 @@
         "nome": "Alura Tracker"
       },
       "id": 2
+    },
+    {
+      "duracaoEmSegundos": 2,
+      "descricao": "Nova tarefa",
+      "projeto": {
+        "id": 1,
+        "nome": "Alura Tracker"
+      },
+      "id": 3
     }
   ]
 }
